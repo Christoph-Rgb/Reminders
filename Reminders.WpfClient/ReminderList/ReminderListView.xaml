@@ -1,0 +1,70 @@
+﻿<UserControl x:Class="Reminders.WpfClient.ReminderListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Reminders.WpfClient"
+             xmlns:sd="clr-namespace:Reminders.WpfClient.SampleData"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    
+    <d:ReminderListView.DataContext>
+        <sd:ReminderListViewModelSampleData/>
+    </d:ReminderListView.DataContext>
+    
+    <UserControl.Resources>
+
+        <ControlTemplate x:Key="ReminderListBoxItemTemplate" TargetType="ListBoxItem">
+            <Grid Margin="1" Background="{Binding Completed, Converter={StaticResource CompletedToColorBrushConverter}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="{Binding Path=Text}" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="1" Text="{Binding Path=DueDate, StringFormat=dd.MM.yyy}" VerticalAlignment="Center"/>
+                <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Grid.Column="2" Margin="5" Content="✅" FontFamily="Segoe UI Symbol" Height="20" Width="20" 
+                        VerticalAlignment="Center" HorizontalAlignment="Right" Command="{Binding CompleteReminderCommand}"/>
+                    <Button Grid.Column="2" Margin="5" Content="" FontFamily="Segoe UI Symbol" Height="20" Width="20" 
+                        VerticalAlignment="Center" HorizontalAlignment="Right" Command="{Binding EditReminderCommand}"/>
+                </StackPanel>
+                
+            </Grid>
+        </ControlTemplate>
+
+        <Style x:Key="RemidnerListBoxItemStyle" TargetType="ListBoxItem">
+            <Setter Property="Template" Value="{StaticResource ReminderListBoxItemTemplate}"/>
+        </Style>
+
+        <Style x:Key="ReminderListBoxStyle" TargetType="{x:Type ListBox}">
+            <Setter Property="ItemContainerStyle" Value="{StaticResource RemidnerListBoxItemStyle}"/>
+        </Style>
+        
+    </UserControl.Resources>
+
+    <Grid Grid.IsSharedSizeScope="True" Margin="1">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        
+        <StackPanel Orientation="Horizontal" Margin="3">
+            <ToggleButton Height="20" Width="20" FontFamily="Segoe UI Symbol" Content="" IsChecked="{Binding Path=HideCompleted}"/>
+        </StackPanel>
+        
+        <Label Grid.Row="1" Content="Reminder Name"/>
+        <Label Grid.Row="1" Grid.Column="1" Content="Due Date"/>
+        
+        <ListBox Grid.Row="2" Grid.ColumnSpan="3" Margin="3"
+                 Style="{StaticResource ReminderListBoxStyle}"
+                 ItemsSource="{Binding Path=CollectionView}"/>
+    </Grid>
+    
+</UserControl>

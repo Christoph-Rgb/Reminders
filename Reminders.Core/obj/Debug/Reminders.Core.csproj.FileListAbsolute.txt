@@ -1,0 +1,5 @@
+D:\repos\C#\Reminders\Reminders.Core\bin\Debug\Reminders.Core.dll
+D:\repos\C#\Reminders\Reminders.Core\bin\Debug\Reminders.Core.pdb
+D:\repos\C#\Reminders\Reminders.Core\obj\Debug\Reminders.Core.csprojResolveAssemblyReference.cache
+D:\repos\C#\Reminders\Reminders.Core\obj\Debug\Reminders.Core.dll
+D:\repos\C#\Reminders\Reminders.Core\obj\Debug\Reminders.Core.pdb
